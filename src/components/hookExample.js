@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 
 const HookExample = () => {
 
-    // state 1 - Declaring new state variable, called "counter"
-    const [counter, setCounter] = useState(0);
-    // state 2 - Declaring new state variable, called "string"
-    const [string, setString] = useState("Hello Word");
+    const switchOption = (state, action) => {
+        switch (action.type) {
+            case 'add':
+                return {count: state.count + 1};
+            case 'substract':
+                return {count: state.count - 1};
+            default:
+                return {count: state}
+        }
+    }
+
+    // state - Declaring new state variable, called "counter"
+    const [counter, setCounter] = useReducer(switchOption, {
+        count: 0
+    });
   return (
     <div className="App">
-      <p> Counter: {counter} </p>
-      <p> String: {string} </p>
-      <button onClick={() => setCounter(val => val + 1)} > Add 1 </button>
-      <button onClick={() => setString("useState hook is easy :)")} > Change text </button>
+      <p> Counter: {counter.count} </p>
+      <button onClick={() => setCounter({type: "add"})} > +1 </button>
+      <button onClick={() => setCounter({type: "substract"})} > -1 </button>
     </div>
   );
 }
