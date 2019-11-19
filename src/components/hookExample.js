@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 const HookExample = () => {
 
-    // state 1
+    // state 1 - Declaring new state variable, called "counter"
     const [counter, setCounter] = useState(0);
-    // state 2
+    // state 2 - Declaring new state variable, called "string"
     const [string, setString] = useState("Hello Word");
   return (
     <div className="App">
