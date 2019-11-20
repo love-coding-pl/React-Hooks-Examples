@@ -1,18 +1,24 @@
-import React, { useContext } from 'react';
-import { DataContext } from '../contexts/dataContext.js';
+import React, { useState, useEffect } from 'react';
 
-const HookExample = () => {
-    const dataContext = useContext(DataContext);
+const HookExample = (props) => {    
+    const [points, setPoints] = useState(0);
+
+    useEffect(() => {
+        // this will display only if state points will change
+        console.log("state changed");
+    },[points]);
+
+    useEffect(() => {
+        // this will display only if props points will change
+        console.log("props changed");
+    },[props.points]);
+
     return (
         <div className="App">
-            <p style={{color: dataContext.data.color}}>This is sample text</p>
-            <div style={{display: dataContext.data.isTextVisible ? "block" : "none"}}>
-                This is more text, which is visible if clicked on "Show more text" button
-            </div>
-            <div>
-                <button onClick={() => dataContext.setData({type: "changeColor", color: 'red'})}>Change text color</button>
-                <button onClick={() => dataContext.setData({type: "changeTextVisibility"})}>Show more text</button>
-            </div>
+            <p>State points: {points}</p>
+            <p>Props points: {props.points}</p>
+            <button onClick={() => setPoints(p => p+1)}>Change state</button>
+            <button onClick={() => props.setPoints(p => p+1)}>Change props</button>
         </div>
     );
 }
