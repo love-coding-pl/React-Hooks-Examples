@@ -19,6 +19,11 @@ const HookExample = (props) => {
     useEffect(() => {
         // this will display only one time, with first render
         console.log("one time display");
+
+        // this will display only one time, before the component is removed from the UI, and its called "clean-up function"
+        return () => {
+            console.log("component unmount");
+        } 
     },[]);
 
     return (
