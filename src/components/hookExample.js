@@ -4,6 +4,8 @@ import SecondComponent from './secondComponent.js';
 const HookExample = (props) => {    
     const [points, setPoints] = useState(0);
 
+    // whatever we put inside useEffect function, it will be rendered every time, when component is rendered
+    // however, we can limit numer of renders and call useEffect function only when certain values have changed.
     useEffect(() => {
         // this will display only if state points will change
         console.log("state changed");
@@ -15,7 +17,7 @@ const HookExample = (props) => {
     },[props.points]);
 
     useEffect(() => {
-        // this will display only one time
+        // this will display only one time, with first render
         console.log("one time display");
     },[]);
 
