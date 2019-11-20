@@ -1,9 +1,25 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 const HookExample = () => {    
     const inputEl = useRef(null);
     const paragraphEl = useRef(null);
+    // useRef hook can also hold a mutable value in its .current property
+    const counter = useRef(0);
     
+    useEffect(() => {
+        console.log("counter ", counter.current++);
+        console.log("counter ", counter.current++);
+        console.log("counter ", counter.current++);
+        console.log("counter ", counter.current++);
+        console.log("counter ", counter.current++);
+    })
+
+    useEffect(() => {
+        console.log(counter.current);
+        counter.current = "yo!";
+        console.log(counter.current);
+    });
+
     return (
         <div className="App">
             <input ref={inputEl} type="text" />
