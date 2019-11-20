@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import HookExample from './components/hookExample.js';
-import DataContextProvider from './contexts/dataContext.js';
 
 function App() {
     const [points, setPoints] = useState(0);
+    const [component, setComponent] = useState({
+        displayComponent: HookExample
+    });
+    const Component = component.displayComponent;
     return (
-        <DataContextProvider >
-            <HookExample points={points} setPoints={setPoints} />
-        </DataContextProvider>
+        <Component points={points} setPoints={setPoints} setComponent={setComponent} />
     );
 }
 
