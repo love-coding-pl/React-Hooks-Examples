@@ -1,39 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import SecondComponent from './secondComponent.js';
+import React, { useRef } from 'react';
 
-const HookExample = (props) => {    
-    const [points, setPoints] = useState(0);
-
-    // whatever we put inside useEffect function, it will be rendered every time, when component is rendered
-    // however, we can limit numer of renders and call useEffect function only when certain values have changed.
-    useEffect(() => {
-        // this will display only if state points will change
-        console.log("state changed");
-    },[points]);
-
-    useEffect(() => {
-        // this will display only if props points will change
-        console.log("props changed");
-    },[props.points]);
-
-    useEffect(() => {
-        // this will display only one time, with first render
-        console.log("one time display");
-
-        // this will display only one time, before the component is removed from the UI, and its called "clean-up function"
-        return () => {
-            console.log("component unmount");
-        } 
-    },[]);
-
+const HookExample = () => {    
+    const inputEl = useRef(null);
+    const paragraphEl = useRef(null);
+    
     return (
         <div className="App">
-            <p>State points: {points}</p>
-            <p>Props points: {props.points}</p>
-            <button onClick={() => setPoints(p => p+1)}>Change state</button>
-            <button onClick={() => props.setPoints(p => p+1)}>Change props</button>
+            <input ref={inputEl} type="text" />
+            <button onClick={() => inputEl.current.focus()}>Set focus</button>
+            <button onClick={() => inputEl.current.style.borderColor = "red"}>Set border color</button>
             <div>
-                <button onClick={() => props.setComponent({displayComponent: SecondComponent})}> Change component </button>
+                <button onClick={() => {
+                            paragraphEl.current.innerText = inputEl.current.value;
+                            inputEl.current.value = "";
+                        }}>Display input value</button>
+                <p ref={paragraphEl} >Display input value here </p>
             </div>
         </div>
     );
