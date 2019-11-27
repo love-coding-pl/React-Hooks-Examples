@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 
 const HookExample = () => {    
+    // when you use reference to dom element, react component is not refreshing,
+    // so even, if you change input value and display it on page, there will be no re-render
     const inputEl = useRef(null);
     const paragraphEl = useRef(null);
     // useRef hook can also hold a mutable value in its .current property
