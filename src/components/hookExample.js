@@ -1,38 +1,29 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 
 const HookExample = () => {    
-    // when you use reference to dom element, react component is not refreshing,
-    // so even, if you change input value and display it on page, there will be no re-render
-    const inputEl = useRef(null);
-    const paragraphEl = useRef(null);
-    // useRef hook can also hold a mutable value in its .current property
-    const counter = useRef(0);
-    
-    useEffect(() => {
-        console.log("counter ", counter.current++);
-        console.log("counter ", counter.current++);
-        console.log("counter ", counter.current++);
-        console.log("counter ", counter.current++);
-        console.log("counter ", counter.current++);
-    })
+    const [counter, setCounter] = useState(0);
+    const [numbers, setNumbers] = useState({a: 5, b: 7})
 
-    useEffect(() => {
-        console.log(counter.current);
-        counter.current = "yo!";
-        console.log(counter.current);
-    });
+    const calculations = () => {
+        // here you can add some calculations
+        console.log("calculations are made here");
+        return numbers.a + numbers.b;
+    }
+
+    // if your calculations will be wrapped in useMemo, it will be re-render only if dependencies will change
+    // otherwise it will be "read value from memory"
+    const memo = useMemo(() => calculations(numbers.a, numbers.b), [numbers.a, numbers.b]);
 
     return (
         <div className="App">
-            <input ref={inputEl} type="text" />
-            <button onClick={() => inputEl.current.focus()}>Set focus</button>
-            <button onClick={() => inputEl.current.style.borderColor = "red"}>Set border color</button>
+            <p>Counter: {counter}</p>
             <div>
-                <button onClick={() => {
-                            paragraphEl.current.innerText = inputEl.current.value;
-                            inputEl.current.value = "";
-                        }}>Display input value</button>
-                <p ref={paragraphEl} >Display input value here </p>
+                <button onClick={() => setCounter(counter-1) }>-1</button>
+                <button onClick={() => setCounter(counter+1) }>+1</button>
+            </div>
+            <p>Memo: {numbers.a} + {numbers.b} = {memo}</p>
+            <div>
+                <button onClick={() => setNumbers({a: numbers.a + 1, b: numbers.b + 2}) }>Change memo numbers</button>
             </div>
         </div>
     );
