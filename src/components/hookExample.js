@@ -34,6 +34,7 @@ const HookExample = () => {
                         }}>Display input value</button>
                 <p ref={paragraphEl} >Display input value here </p>
             </div>
+            <button onClick={() => paragraphEl.current.innerText = counter.current}>Display counter value</button>
         </div>
     );
 }
